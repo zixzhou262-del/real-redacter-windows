@@ -15,15 +15,7 @@ ReaL Redacter 是一款面向 Windows 10 和 Windows 11 的离线可逆文档脱
 - 支持拖入文件或文件夹
 - 支持深色和浅色界面
 
-## 下载
 
-本仓库为私有仓库，只有被邀请的协作者可以访问。
-
-下载 Windows 版本时，请打开 GitHub 的 `Actions` 页面，进入 `Build Windows x64`，打开最近一次成功的运行记录，在页面底部的 `Artifacts` 区域下载：
-
-`ReaL-Redacter-2.2.2-windows-x64`
-
-GitHub Actions 构建产物默认保留 14 天，请及时下载并在本地备份。
 
 ## 运行方法
 
