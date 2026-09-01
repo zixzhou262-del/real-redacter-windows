@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "offline-reversible-document-anonymizer"
+version = "2.2.2"
+description = "Local offline reversible document anonymizer."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: Microsoft :: Windows :: Windows 10",
+  "Operating System :: Microsoft :: Windows :: Windows 11",
+  "Programming Language :: Python :: 3"
+]
+dependencies = [
+  "python-docx>=1.1.2",
+  "lxml>=5.0.0",
+  "markdown-it-py>=3.0.0",
+  "PySide6>=6.7.0"
+]
+
+[project.optional-dependencies]
+ui = [
+  "fastapi>=0.115.0",
+  "uvicorn>=0.30.0",
+  "jinja2>=3.1.0"
+]
+macos = [
+  "pyinstaller>=6.0.0",
+  "pywebview>=5.0.0"
+]
+gui = [
+  "PySide6>=6.7.0"
+]
+test = [
+  "pytest>=8.0.0"
+]
+
+[tool.setuptools.package-data]
+offline_anonymizer = ["resources/*"]
+
+[tool.setuptools.packages.find]
+include = ["offline_anonymizer*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

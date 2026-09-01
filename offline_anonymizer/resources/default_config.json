@@ -1,0 +1,38 @@
+{
+  "rules": {
+    "number": true,
+    "money": true,
+    "percent": true,
+    "custom": true
+  },
+  "custom_keywords": [],
+  "custom_regex": [],
+  "token_labels": {
+    "company": "企业",
+    "person": "姓名",
+    "money": "金额",
+    "percent": "百分比",
+    "date": "日期",
+    "number": "数字",
+    "phone": "手机",
+    "email": "邮箱",
+    "custom": "敏感"
+  },
+  "paths": {
+    "output_dir": "__APP_OUTPUTS__",
+    "log_dir": "__APP_LOGS__"
+  },
+  "output": {
+    "default_formats": ["docx"]
+  },
+  "code_block_detection": false,
+  "storage": {
+    "database_path": "__APP_ROOT__/projects.sqlite"
+  },
+  "ui": {
+    "theme": "dark",
+    "batch_workers": 1,
+    "host": "127.0.0.1",
+    "port": 8765
+  }
+}

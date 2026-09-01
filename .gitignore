@@ -1,0 +1,36 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+.venv*/
+
+# Build and release output
+/dist/
+/release/
+/work/
+/build/offline_anonymizer/
+/build/github_windows/*.zip
+
+# Local application data
+/logs/
+/outputs/
+/mappings/
+/temp/
+*.log
+
+# Local secrets and editor settings
+.env
+.env.*
+.idea/
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Office temporary files
+~$*.docx
+~$*.xlsx
+~$*.pptx
