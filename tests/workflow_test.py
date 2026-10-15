@@ -157,6 +157,39 @@ class WorkflowTest(unittest.TestCase):
         self.assertIn("[敏感001]", html)
         self.assertEqual(mapping["custom_001"]["original"], "苹果")
 
+    def test_explicit_custom_only_rules_disable_numeric_detectors(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            input_path = root / "example.txt"
+            input_path.write_text(
+                "苹果项目金额500万元，占比12.5%，编号2025。",
+                encoding="utf-8",
+            )
+            config = {
+                "paths": {
+                    "output_dir": str(root / "outputs"),
+                    "log_dir": str(root / "logs"),
+                },
+                "rules": {
+                    "money": False,
+                    "percent": False,
+                    "number": False,
+                    "custom": True,
+                },
+                "custom_keywords": ["苹果"],
+            }
+
+            result = DocumentPipeline(config=config).anonymize(input_path)
+            html = Path(result.masked_html).read_text(encoding="utf-8")
+            mapping = read_mapping(result.mapping_file)
+
+        self.assertIn("[敏感001]", html)
+        self.assertIn("项目金额500万元，占比12.5%，编号2025", html)
+        self.assertNotIn("money_001", mapping)
+        self.assertNotIn("percent_001", mapping)
+        self.assertNotIn("number_001", mapping)
+        self.assertEqual(mapping["custom_001"]["original"], "苹果")
+
     def test_load_config_merges_user_config_with_defaults(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             config_path = Path(tmpdir) / "config.json"

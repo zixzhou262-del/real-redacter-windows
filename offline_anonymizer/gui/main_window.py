@@ -707,7 +707,18 @@ class MainWindow(QMainWindow):
             formats=self.output_panel.formats(),
             custom_keywords=self.rule_panel.custom_keywords(),
         )
-        return result.data.get("config", {})
+        if result.success:
+            return result.data.get("config", {})
+
+        # Keep the selected checkboxes authoritative even if a user config
+        # cannot be read or written on Windows. Falling back to an empty config
+        # would make the pipeline load defaults and enable every rule.
+        return {
+            "rules": self.rule_panel.rules(),
+            "custom_keywords": self.rule_panel.custom_keywords(),
+            "paths": {"output_dir": self.output_panel.output_dir()},
+            "output": {"default_formats": self.output_panel.formats()},
+        }
 
     def _load_theme(self) -> str:
         result = self.config_service.load_config()

@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 
 $RootDir = Resolve-Path (Join-Path $PSScriptRoot "..")
 $AppName = "ReaL Redacter"
-$Version = "2.2.2"
+$Version = "2.2.3"
 $VenvDir = Join-Path $RootDir ".venv-windows"
 $PythonExe = Join-Path $VenvDir "Scripts\python.exe"
 $DistDir = Join-Path $RootDir "dist"

@@ -41,6 +41,39 @@ class GuiImportTest(unittest.TestCase):
             },
         )
 
+    @unittest.skipUnless(
+        PYSIDE_AVAILABLE and RUN_QT_WIDGET_TESTS,
+        "Qt widget tests require RUN_QT_WIDGET_TESTS=1",
+    )
+    def test_rule_panel_preserves_custom_only_selection(self):
+        configure_qt_for_test()
+        from PySide6.QtWidgets import QApplication
+
+        from offline_anonymizer.gui.widgets.rule_panel import RulePanelWidget
+
+        app = QApplication.instance() or QApplication([])
+        panel = RulePanelWidget()
+        panel.checkboxes["money"].setChecked(False)
+        panel.checkboxes["percent"].setChecked(False)
+        panel.checkboxes["number"].setChecked(False)
+        panel.checkboxes["custom"].setChecked(True)
+        panel.custom_keywords_edit.setPlainText("苹果")
+
+        self.assertEqual(
+            panel.rules(),
+            {"money": False, "percent": False, "number": False, "custom": True},
+        )
+        self.assertEqual(panel.custom_keywords(), ["苹果"])
+        self.assertIsNotNone(app)
+
+    def test_stylesheet_uses_windows_safe_checkmark_uri(self):
+        from offline_anonymizer.gui.style import get_stylesheet
+
+        stylesheet = get_stylesheet("dark")
+        self.assertIn("QCheckBox::indicator:checked", stylesheet)
+        self.assertIn("url(\"file://", stylesheet)
+        self.assertIn("QPlainTextEdit#customKeywordsEdit", stylesheet)
+
     @unittest.skipUnless(PYSIDE_AVAILABLE, "PySide6 is not installed")
     def test_gui_modules_can_import(self):
         from offline_anonymizer.gui.main_window import MainWindow

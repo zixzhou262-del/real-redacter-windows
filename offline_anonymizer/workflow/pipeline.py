@@ -377,14 +377,23 @@ class DocumentPipeline:
         return TokenRegistry(labels=self.config.get("token_labels"))
 
     def _enabled_detectors(self):
-        rules = self.config.get("rules", {})
+        configured_rules = self.config.get("rules")
+        rules = configured_rules if isinstance(configured_rules, dict) else {}
         detectors = [
             detector
             for detector in default_detectors()
             if detector.token_type in SUPPORTED_RULE_TYPES
             and rules.get(detector.token_type, False)
         ]
-        if rules.get("custom", True):
+        # A config with an explicit rules object is authoritative. For legacy
+        # programmatic configs that only supplied custom keywords, preserve
+        # the useful historical behavior and enable the custom detector.
+        custom_enabled = rules.get(
+            "custom",
+            configured_rules is None
+            and bool(self.config.get("custom_keywords") or self.config.get("custom_regex")),
+        )
+        if custom_enabled:
             detectors.extend(
                 custom_detectors(
                     keywords=self.config.get("custom_keywords", []),

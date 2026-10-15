@@ -5,7 +5,15 @@ from offline_anonymizer.app_environment import resource_path
 
 def get_stylesheet(theme: str = "dark") -> str:
     stylesheet = LIGHT_STYLESHEET if theme == "light" else DARK_STYLESHEET
-    return stylesheet.replace("__CHECKMARK_ICON__", str(resource_path("checkmark.svg")))
+    # Qt style-sheet URLs need URI form on Windows. A raw ``C:\\...`` path
+    # can make the checked indicator invisible even though the checkbox state
+    # changed correctly.
+    checkmark_path = resource_path("checkmark.svg").resolve()
+    try:
+        checkmark_url = checkmark_path.as_uri()
+    except ValueError:
+        checkmark_url = checkmark_path.as_posix()
+    return stylesheet.replace("__CHECKMARK_ICON__", checkmark_url)
 
 
 DARK_STYLESHEET = """
@@ -167,6 +175,12 @@ QPlainTextEdit, QComboBox {
     color: #eef2f4;
     padding: 6px;
     selection-background-color: #ef3f3a;
+    selection-color: #ffffff;
+}
+
+QPlainTextEdit#customKeywordsEdit {
+    background: #080b0e;
+    color: #eef2f4;
 }
 
 QTableWidget {
@@ -357,6 +371,12 @@ QPlainTextEdit, QComboBox {
     color: #1f2328;
     padding: 6px;
     selection-background-color: #ef3f3a;
+    selection-color: #ffffff;
+}
+
+QPlainTextEdit#customKeywordsEdit {
+    background: #ffffff;
+    color: #1f2328;
 }
 
 QTableWidget {

@@ -6,7 +6,7 @@ from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 
 
 APP_NAME = "ReaL Redacter"
-APP_VERSION = "2.2.2"
+APP_VERSION = "2.2.3"
 PROJECT_ROOT = Path(SPECPATH).parent
 if PROJECT_ROOT.name == "build":
     PROJECT_ROOT = PROJECT_ROOT.parent

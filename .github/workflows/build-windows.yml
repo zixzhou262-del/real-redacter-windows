@@ -46,13 +46,13 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path release -Force | Out-Null
-          Compress-Archive -Path ".\dist\ReaL Redacter" -DestinationPath ".\release\ReaL Redacter-2.2.2-windows-x64.zip" -CompressionLevel Optimal -Force
-          Get-FileHash ".\release\ReaL Redacter-2.2.2-windows-x64.zip" -Algorithm SHA256 | Format-List
+          Compress-Archive -Path ".\dist\ReaL Redacter" -DestinationPath ".\release\ReaL Redacter-2.2.3-windows-x64.zip" -CompressionLevel Optimal -Force
+          Get-FileHash ".\release\ReaL Redacter-2.2.3-windows-x64.zip" -Algorithm SHA256 | Format-List
 
       - name: Upload Windows package
         uses: actions/upload-artifact@v4
         with:
-          name: ReaL-Redacter-2.2.2-windows-x64
-          path: release/ReaL Redacter-2.2.2-windows-x64.zip
+          name: ReaL-Redacter-2.2.3-windows-x64
+          path: release/ReaL Redacter-2.2.3-windows-x64.zip
           if-no-files-found: error
           retention-days: 14

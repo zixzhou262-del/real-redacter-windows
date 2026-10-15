@@ -18,6 +18,8 @@ RULE_LABELS = {
     "number": "数字",
 }
 
+SUPPORTED_RULE_KEYS = (*RULE_LABELS.keys(), "custom")
+
 
 class RulePanelWidget(QWidget):
     def __init__(self) -> None:
@@ -35,17 +37,23 @@ class RulePanelWidget(QWidget):
         grid = QGridLayout()
         for index, (key, label) in enumerate(RULE_LABELS.items()):
             checkbox = QCheckBox(label)
-            checkbox.setChecked(bool(rules.get(key, True)))
+            # The bundled default config supplies the normal defaults. Missing
+            # keys must remain disabled here so an old or partial Windows
+            # config can never silently enable an extra detector.
+            checkbox.setTristate(False)
+            checkbox.setChecked(bool(rules.get(key, False)))
             self.checkboxes[key] = checkbox
             grid.addWidget(checkbox, index // 2, index % 2)
         layout.addLayout(grid)
         custom_box = QCheckBox("自定义内容")
-        custom_box.setChecked(bool(rules.get("custom", True)))
+        custom_box.setTristate(False)
+        custom_box.setChecked(bool(rules.get("custom", False)))
         self.checkboxes["custom"] = custom_box
         layout.addWidget(custom_box)
 
         layout.addWidget(QLabel("自定义脱敏内容（一行一个词）"))
         self.custom_keywords_edit = QPlainTextEdit()
+        self.custom_keywords_edit.setObjectName("customKeywordsEdit")
         self.custom_keywords_edit.setPlaceholderText("例如：苹果\n内部项目代号")
         self.custom_keywords_edit.setPlainText(
             "\n".join(config.get("custom_keywords", []))
@@ -54,7 +62,10 @@ class RulePanelWidget(QWidget):
         layout.addWidget(self.custom_keywords_edit)
 
     def rules(self) -> dict[str, bool]:
-        return {key: checkbox.isChecked() for key, checkbox in self.checkboxes.items()}
+        return {
+            key: self.checkboxes[key].isChecked()
+            for key in SUPPORTED_RULE_KEYS
+        }
 
     def custom_keywords(self) -> list[str]:
         return [
