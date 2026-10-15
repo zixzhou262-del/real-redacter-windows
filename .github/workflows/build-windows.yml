@@ -33,7 +33,7 @@ jobs:
         env:
           QT_QPA_PLATFORM: offscreen
           RUN_QT_WIDGET_TESTS: "1"
-        run: python -m unittest discover -s tests -p "*test.py" -q
+        run: python -m unittest discover -s tests -p "*test.py"
 
       - name: Build portable application
         shell: pwsh
