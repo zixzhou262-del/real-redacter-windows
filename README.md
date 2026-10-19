@@ -19,13 +19,21 @@ ReaL Redacter 是一款面向 Windows 10 和 Windows 11 的离线可逆文档脱
 
 ## 下载
 
-本仓库公开提供 ReaL Redacter 的 Windows 版本源代码和自动构建流程。
+请从本仓库的 [Releases](https://github.com/zixzhou262-del/real-redacter-windows/releases) 页面下载正式版本。
 
-下载 Windows 版本时，请打开 GitHub 的 `Actions` 页面，进入 `Build Windows x64`，打开最近一次成功的运行记录，在页面底部的 `Artifacts` 区域下载：
+当前版本：[Windows v2.2.3](https://github.com/zixzhou262-del/real-redacter-windows/releases/tag/v2.2.3-Windows)
 
-`ReaL-Redacter-2.2.2-windows-x64`
+直接下载：[ReaL.Redacter-2.2.3-windows-x64.zip](https://github.com/zixzhou262-del/real-redacter-windows/releases/download/v2.2.3-Windows/ReaL.Redacter-2.2.3-windows-x64.zip)
 
-GitHub Actions 构建产物默认保留 14 天，请及时下载并在本地备份。
+该版本是 Windows x64 便携版，解压后即可运行，不需要安装 Python。GitHub Actions 的临时构建产物仅用于测试，不作为正式下载渠道。
+
+## v2.2.3 更新内容
+
+- 修复脱敏规则勾选状态不生效的问题。
+- 支持只勾选“自定义内容”，单独按自定义敏感词脱敏。
+- 修复 Windows 下勾选标记不显示的问题。
+- 修复自定义敏感词输入框文字颜色问题。
+- 未勾选的金额、百分比、数字规则不会参与脱敏。
 
 ## 运行方法
 
