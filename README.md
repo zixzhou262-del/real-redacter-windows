@@ -2,7 +2,7 @@
 
 ReaL Redacter 是一款面向 Windows 10 和 Windows 11 的离线可逆文档脱敏工具。
 
-当前版本为 `2.2.2`，支持 x64 Windows，采用便携版运行方式，不需要安装程序，也不需要联网。
+当前版本为 `2.2.3`，支持 x64 Windows，采用便携版运行方式，不需要安装程序，也不需要联网。
 
 ## 主要功能
 
@@ -122,7 +122,7 @@ ReaL Redacter 面向本地单用户使用。文档、映射文件、配置和日
 ## 构建信息
 
 - 应用名称：`ReaL Redacter`
-- 版本：`2.2.2`
+- 版本：`2.2.3`
 - 平台：Windows 10/11 x64
 - 发布形式：Portable ZIP
 - 构建方式：GitHub Actions + PyInstaller
